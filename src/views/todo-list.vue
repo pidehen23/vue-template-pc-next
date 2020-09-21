@@ -32,7 +32,6 @@
   </div>
 </template>
 <script lang="ts">
-// 在vue2中 data 在vue3中使用 reactive代替
 import { reactive, computed } from "vue";
 import { useStore } from "vuex";
 export default {
@@ -57,6 +56,7 @@ export default {
         },
       ],
       todo: "",
+      color: "red",
     });
     const todos = computed(() => {
       return state.todoList.filter((item) => !item.done);
@@ -73,7 +73,7 @@ export default {
     });
 
     // 修改待办状态
-    const handleChangeStatus = (item, status) => {
+    const handleChangeStatus = (item: { done: any }, status: any) => {
       item.done = status;
     };
 
@@ -109,9 +109,10 @@ export default {
   },
 };
 </script>
-<style scoped>
+<style scoped vars="{color:state.color}">
 .todo-list {
   text-align: center;
+  color: var(--color);
 }
 
 .todo-list ul li {
